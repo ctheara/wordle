@@ -197,18 +197,18 @@
               <li>the letter is <span  class = 'wrong-color'>not in the word.</span></li>
             </ul>
           
-            <p>Note that your guesses do not have to be a read words, For more fun, play Wordle <a class = "link" href="https://www.powerlanguage.co.uk/wordle">https://www.powerlanguage.co.uk/wordle</a>.</p>
+            <p>Note that your guesses do not have to be a real words, For more fun, play Wordle <a class = "link" href="https://www.powerlanguage.co.uk/wordle">https://www.powerlanguage.co.uk/wordle</a>.</p>
           </div>
 
           <!---Input form and buttons-->
           <form id = "input-form" onsubmit = "return false;"> 
             <div class = 'form-container'>
               <div class = 'input-container'>
-                <input type="text" id="box1" name="box1" value="" maxlength="1" style="text-align:center;" required>  
-                <input type="text" id="box2" name="box2" value="" maxlength="1" style="text-align:center;" required>  
-                <input type="text" id="box3" name="box3" value="" maxlength="1" style="text-align:center;" required>  
-                <input type="text" id="box4" name="box4" value="" maxlength="1" style="text-align:center;" required>  
-                <input type="text" id="box5" name="box5" value="" maxlength="1" style="text-align:center;" required>  
+                <input type="text" id="box1" name="box1" value="" maxlength="1" style="text-align:center;" onkeyup="toNext(this,this.value)" required>  
+                <input type="text" id="box2" name="box2" value="" maxlength="1" style="text-align:center;" onkeyup="toNext(this,this.value)" required disabled>  
+                <input type="text" id="box3" name="box3" value="" maxlength="1" style="text-align:center;" onkeyup="toNext(this,this.value)" required disabled>  
+                <input type="text" id="box4" name="box4" value="" maxlength="1" style="text-align:center;" onkeyup="toNext(this,this.value)" required disabled>  
+                <input type="text" id="box5" name="box5" value="" maxlength="1" style="text-align:center;" onkeyup="toNext(this,this.value)" required disabled>  
               </div>
               
               <br>
@@ -246,7 +246,7 @@
       <script>
       "use script";
           
-        const ANSWER = 'FANCY';
+        const ANSWER = 'CANDY';
 
 
         // add event listener for submit button
@@ -297,8 +297,41 @@
               $("#" +l).removeClass("almost-color");
               $("#" +l).removeClass("wrong-color");
             }
+
+            //disable all input boxes except the first one
+            $("#box2").prop('disabled', true); 
+            $("#box3").prop('disabled', true); 
+            $("#box4").prop('disabled', true); 
+            $("#box5").prop('disabled', true); 
           });
         });
+
+
+
+        //move to next input box and enable entry
+        function toNext(elmnt,content){
+          if (content.length==elmnt.maxLength){
+            if (elmnt.id == "box1"){
+              document.getElementById("box2").disabled = false;
+              document.forms[0].elements[1].focus();
+            }
+            else if (elmnt.id == "box2"){
+              document.getElementById("box3").disabled = false;
+              document.forms[0].elements[2].focus();            
+            }
+            else if (elmnt.id == "box3"){
+              document.getElementById("box4").disabled = false;
+              document.forms[0].elements[3].focus();              
+            }
+            else if (elmnt.id == "box4"){            
+              document.getElementById("box5").disabled = false;
+              document.forms[0].elements[4].focus();
+            }
+            else if (elmnt.id == "box5"){
+              document.forms[0].elements[5].focus();
+            }
+          }
+        }
 
   
        
