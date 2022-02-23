@@ -24,26 +24,27 @@
           border: 2px;
         }
 
-        .correctL {
+        .correct-color, #a {
           background-color: #6aaa64;
           border-style: solid;
-          border: 2px;
           border-color: #6aaa64;
         }
-        .almostL {
+        .almost-color {
           background-color: #c9b458;
-          border: 2px;
           border-style: solid;
           border-color: #c9b458;
 
-
         }
-        .wrongL {
+        .wrong-color {
           background-color: #787c7e;
-          border: 2px;
           border-style: solid;
           border-color: #787c7e;
         }
+        .none-color {
+          background-color: transparent;
+          border-color: #787c7e;
+        }
+        
         
         .link:hover{
           font-size: 110%;
@@ -63,7 +64,7 @@
           width: 100%;      /* navbar to full width of page */
           margin: 0;
           padding: 0;	
-          background-color: rgb(0, 38, 73);    
+          background-color: rgb(88, 122, 153);    
         }
         ul.navbar li {
           list-style-type: none;
@@ -71,8 +72,9 @@
         }
         ul.navbar li a {			
           display:block;
+          font-size: 18px;
           padding: 14px 16px;
-          color:white;
+          color:black;
           text-align:center;
           text-decoration: none;
         }  
@@ -91,8 +93,8 @@
           padding: 5px;
         }
 
-        /*Center buttons*/ 
-        .btn-div {
+        /*button styling*/ 
+        .btn-div{
           display: flex;
           justify-content: center;
           align-items: center;
@@ -116,12 +118,27 @@
 
         }
 
-
+        /* */
         #box1, #box2, #box3, #box4, #box5 {
           text-transform: capitalize;
         }
 
+
+        /* */
+        #display-congrats-container {
+          position: fixed;
+          visibility:hidden;
+          top: 250px;
+          left: 50px;
+          text-align: center;
+          color: white;
+          background-color: #6aaa64;
+          margin: auto;
+          border: 3px solid green;
+          padding: 5px;
+        }
        
+      
 
             
         
@@ -144,62 +161,85 @@
 
       <ul class = "navbar">
         <li> <a href="">Wordle</a> </li>    <!-- link to custom page link "top"  -->
-        <li class = "darkBtn"> <a href="#top"  >Dark Mode</a> </li>
+        <li id = "darkBtn" > <a href="#hi"  >Dark Mode</a> </li>
       </ul>
 
       <!--jQuery to toggle with darkMode and default (light mode)-->
       <script>
         $(document).ready(function(){
-          $(".darkBtn").click(function() {
-            $(".main-body").toggleClass("darkMode");
+          $("#darkBtn").click(function() {
+            if (document.getElementById("darkBtn").innerText == 'Dark Mode'){
+              $(".main-body").toggleClass("darkMode");
+              $("#darkBtn").html("Light Mode");
+            }
+            else {
+              $(".main-body").toggleClass("darkMode");
+              $("#darkBtn").html("Dark Mode");
+            }
+            
             //$('.darkBtn').html('Light Mode');
           });
         });
       </script>
   
-  <br><br>
+    <br><br>
 
         
       <div class = 'container m-5'>
        
         <div style="text-align:center"><h1 >Wordle Project </h1></div>
-          
-
           <!---Page description-->
           <div class = 'intro'>
             <p> <b>Directions: </b> Guess the 5 letter word. After sunbitting a guess, the characters will be color-cded as follows: </p>
             <ul>
-              <li>the letter is in the <span  class = 'correctL'>correct position.</span></li>
-              <li>the letter is in the <span  class = 'almostL'>wrong position.</span></li>
-              <li>the letter is <span  class = 'wrongL'>not in the word.</span></li>
+              <li>the letter is in the <span  class = 'correct-color'>correct position.</span></li>
+              <li>the letter is in the <span  class = 'almost-color'>wrong position.</span></li>
+              <li>the letter is <span  class = 'wrong-color'>not in the word.</span></li>
             </ul>
           
             <p>Note that your guesses do not have to be a read words, For more fun, play Wordle <a class = "link" href="https://www.powerlanguage.co.uk/wordle">https://www.powerlanguage.co.uk/wordle</a>.</p>
           </div>
 
-        <form onsubmit = "return false;">
-        
-          <div class = 'form-container'>
-            <div class = 'input-container'>
-              <input type="text" id="box1" name="box1" value="" maxlength="1">  
-              <input type="text" id="box2" name="box2" value="" maxlength="1">  
-              <input type="text" id="box3" name="box3" value="" maxlength="1">  
-              <input type="text" id="box4" name="box4" value="" maxlength="1">  
-              <input type="text" id="box5" name="box5" value="" maxlength="1">  
+          <!---Input form and buttons-->
+          <form id = "input-form" onsubmit = "return false;"> 
+            <div class = 'form-container'>
+              <div class = 'input-container'>
+                <input type="text" id="box1" name="box1" value="" maxlength="1" style="text-align:center;" required>  
+                <input type="text" id="box2" name="box2" value="" maxlength="1" style="text-align:center;" required>  
+                <input type="text" id="box3" name="box3" value="" maxlength="1" style="text-align:center;" required>  
+                <input type="text" id="box4" name="box4" value="" maxlength="1" style="text-align:center;" required>  
+                <input type="text" id="box5" name="box5" value="" maxlength="1" style="text-align:center;" required>  
+              </div>
+              
+              <br>
+              <div class = 'btn-div'>
+                <input id="submit-btn"  class = 'btn' type="submit">
+                <input id="reset-btn"  class = 'btn' type="reset" >   
+              </div>
             </div>
-            
+          </form>
 
 
-            <br>
-            <div class = 'btn-div'>
-              <input id="submit-btn"  class = 'btn' type="submit">
-              <input id="reset-btn"  class = 'btn' type="reset">   
-            </div>
+         
+
+
+
+
+
+          <!--- I give up button will show the answer-->
+          <div class="text-center">
+            <button id = 'answer-btn' class = 'btn' onclick="getAnswer()">I Give Up</button>
           </div>
-            
-        
-        
-        </form>
+          
+
+
+          <!--- Congrat message-->
+          <div id = 'display-congrats-container' onclick = "hideCongrats()">
+            <h1>Congratulation! You solved the Wordle!</h1>
+            <p>Click to close</p>
+          
+        </div>
+
   
       </div>
   
@@ -207,32 +247,272 @@
       "use script";
           
         const ANSWER = 'FANCY';
+
+
+        // add event listener for submit button
+        document.getElementById('input-form').addEventListener("submit", checkAnswer);
+
+
+
+
+
+        //add event listeners for input boxes
+        for (let i = 1; i <= 5; i++) {
+          let id = 'box' + i;
+          document.getElementById(id).addEventListener("change", clearColor);
+        }
+
+        //clear styling for input boxes when value change
+        function clearColor() {
+          this.classList.remove("correct-color");
+          this.classList.remove("almost-color");
+          this.classList.remove("wrong-color");
+        }
+
+    
+        //reset all value and styling from input form
+        $(document).ready(function(){
+          $("#reset-btn").click(function() {
+            //remove value and styling from input boxes
+            $("#box1").removeClass("correct-color");
+            $("#box1").removeClass("almost-color");
+            $("#box1").removeClass("wrong-color");
+            $("#box2").removeClass("correct-color");
+            $("#box2").removeClass("almost-color");
+            $("#box2").removeClass("wrong-color");
+            $("#box3").removeClass("correct-color");
+            $("#box3").removeClass("almost-color");
+            $("#box3").removeClass("wrong-color");
+            $("#box4").removeClass("correct-color");
+            $("#box4").removeClass("almost-color");
+            $("#box4").removeClass("wrong-color");
+            $("#box5").removeClass("correct-color");
+            $("#box5").removeClass("almost-color");
+            $("#box5").removeClass("wrong-color");
+
+            //remove styling from onscreen keyboard
+            let letters = "QWERTYUIOPASDFGHJKLZXCVBNM";
+            for (let l of letters){
+              $("#" +l).removeClass("correct-color");
+              $("#" +l).removeClass("almost-color");
+              $("#" +l).removeClass("wrong-color");
+            }
+          });
+        });
+
+  
        
         // displays "keys" for each character in the keys string
         function writeKeys(keys) {
-    
             document.write('<div class = "d-flex justify-content-center">')
                 for (let k of keys) {   
                     document.write('<div>');
                     document.write('<button class = "keyboard-button" id = "' + k + '">' + k + '</button>')        
                     document.write('</div>');
                 }
-    
             document.write('</div>');
         }     
-    
-  
-        document.write('<div class = "container keys m-5">');
-  
+        document.write('<div class = "container-keys m-5">');
   
         writeKeys('QWERTYUIOP');
         writeKeys('ASDFGHJKL')
         writeKeys('ZXCVBNM');
   
         document.write('</div>');
-  
+
+
+
+        //color keyboard and input by adding stlying class
+        function checkAnswer(){
+
+          //if user chose the correct letter in the correct position
+          if (box1.value == 'f'){
+            document.getElementById("box1").className = "correct-color";
+            
+            if ( document.getElementById("F").classList.contains("almost-color") ){
+              document.getElementById("F").classList.remove("almost-color");
+              document.getElementById("F").classList.add("correct-color");
+            }
+            else if ( document.getElementById("F").classList.contains("wrong-color") ){
+              document.getElementById("F").classList.remove("wrong-color");
+              document.getElementById("F").classList.add("correct-color");
+            }
+            else {
+              document.getElementById("F").classList.add("correct-color");
+            }
+          }
+          if (box2.value == 'a'){
+            document.getElementById("box2").className = "correct-color";
+
+            if ( document.getElementById("A").classList.contains("almost-color") ){
+              document.getElementById("A").classList.remove("almost-color");
+              document.getElementById("A").classList.add("correct-color");
+            }
+            else if ( document.getElementById("A").classList.contains("wrong-color") ){
+              document.getElementById("A").classList.remove("wrong-color");
+              document.getElementById("A").classList.add("correct-color");
+            }
+            else {
+              document.getElementById("A").classList.add("correct-color");
+            }
+          }
+          if (box3.value == 'n'){
+            document.getElementById("box3").className = "correct-color";
+            if ( document.getElementById("N").classList.contains("almost-color") ){
+              document.getElementById("N").classList.remove("almost-color");
+              document.getElementById("N").classList.add("correct-color");
+            }
+            else if ( document.getElementById("N").classList.contains("wrong-color") ){
+              document.getElementById("N").classList.remove("wrong-color");
+              document.getElementById("N").classList.add("correct-color");
+            }
+            else {
+              document.getElementById("N").classList.add("correct-color");
+            }
+          }
+          if (box4.value == 'c'){
+            document.getElementById("box4").className = "correct-color";
+            
+            if ( document.getElementById("C").classList.contains("almost-color") ){
+              document.getElementById("C").classList.remove("almost-color");
+              document.getElementById("C").classList.add("correct-color");
+            }
+            else if ( document.getElementById("C").classList.contains("wrong-color") ){
+              document.getElementById("C").classList.remove("wrong-color");
+              document.getElementById("C").classList.add("correct-color");
+            }
+            else {
+              document.getElementById("C").classList.add("correct-color");
+            }
+          }
+          if (box5.value == 'y'){
+            document.getElementById("box5").className = "correct-color";
+            if ( document.getElementById("Y").classList.contains("almost-color") ){
+              document.getElementById("Y").classList.remove("almost-color");
+              document.getElementById("Y").classList.add("correct-color");
+            }
+            else if ( document.getElementById("Y").classList.contains("wrong-color") ){
+              document.getElementById("Y").classList.remove("wrong-color");
+              document.getElementById("Y").classList.add("correct-color");
+            }
+            else {
+              document.getElementById("Y").classList.add("correct-color");
+            }
+          }
+
+          //if user guess the correct word, show congrats message
+          if (box1.value == 'f' && box2.value == 'a'  && box3.value == 'n'  && box4.value == 'c'  && box5.value == 'y'){
+            showCongrats();
+          }
+
+          //check first input box
+          if (box1.value != 'f') {
+            //letter value in input box 1
+            let letter = box1.value;
+
+            if (letter == 'a' || letter == 'n' || letter == 'c' || letter == 'y') {
+              document.getElementById("box1").className = "almost-color";
+              document.getElementById(letter.toUpperCase()).classList.add("almost-color");
+            }
+            else if (letter == ''){}
+            else{
+              document.getElementById("box1").className = "wrong-color";
+              document.getElementById(letter.toUpperCase()).classList.add("wrong-color");
+            }
+          }
+          //check second input box
+          if (box2.value != 'a') {
+            //letter value in input box 1
+            let letter = box2.value;
+            
+            if (letter == 'f' || letter == 'n' || letter == 'c' || letter == 'y') {
+              document.getElementById("box2").className = "almost-color";
+              document.getElementById(letter.toUpperCase()).classList.add("almost-color");
+            }
+            else if (letter == ''){}
+            else{
+              document.getElementById("box2").className = "wrong-color";
+              document.getElementById(letter.toUpperCase()).classList.add("wrong-color");
+            }
+          }
+          //check third input box
+          if (box3.value != 'n') {
+            //letter value in input box 1
+            let letter = box3.value;
+            
+            if (letter == 'a' || letter == 'f' || letter == 'c' || letter == 'y') {
+              document.getElementById("box3").className = "almost-color";
+              document.getElementById(letter.toUpperCase()).classList.add("almost-color");
+            }
+            else if (letter == ''){}
+            else{
+              document.getElementById("box3").className = "wrong-color";
+              document.getElementById(letter.toUpperCase()).classList.add("wrong-color");
+            }
+          }
+          //check fourth input box
+          if (box4.value != 'c') {
+            //letter value in input box 1
+            let letter = box4.value;
+            
+            if (letter == 'a' || letter == 'n' || letter == 'f' || letter == 'y') {
+              document.getElementById("box4").className = "almost-color";
+              document.getElementById(letter.toUpperCase()).classList.add("almost-color");
+            }
+            else if (letter == ''){}
+            else{
+              document.getElementById("box4").className = "wrong-color";
+              document.getElementById(letter.toUpperCase()).classList.add("wrong-color");
+            }
+          }
+          //check fifth input box
+          if (box5.value != 'y') {
+            //letter value in input box 1
+            let letter = box5.value;
+            
+            if (letter == 'a' || letter == 'n' || letter == 'c' || letter == 'f') {
+              document.getElementById("box5").className = "almost-color";
+              document.getElementById(letter.toUpperCase()).classList.add("almost-color");
+            }
+            else if (letter == ''){}                  
+            else{
+              document.getElementById("box5").className = "wrong-color";
+              document.getElementById(letter.toUpperCase()).classList.add("wrong-color");
+            }
+          }
+
+
+
+          
+          
+
+
+        }
+
+
+
+
+        //Display answer as alert
+        function getAnswer() {
+          alert("Answer: " + ANSWER);
+        }
+
+        //To show and hide the congrats message
+        function showCongrats() {
+          document.getElementById("display-congrats-container").style.visibility= 'visible' ;
+        }
+        function hideCongrats() {
+          document.getElementById("display-congrats-container").style.visibility= 'hidden' ;
+        }
+
+
 
         </script>
+
+        <div class = 'congrat'>
+
+        </div>
+
 
   
     </body>
